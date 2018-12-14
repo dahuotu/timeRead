@@ -1,0 +1,256 @@
+::-webkit-input-placeholder {
+	/* WebKit browsers */
+	color: #333;
+}
+
+:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #333;
+}
+
+::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #333;
+}
+
+:-ms-input-placeholder {
+	/* Internet Explorer 10+ */
+	color: #333;
+}
+
+body {
+	background: #f1f1f1;
+}
+
+
+/*顶部*/
+
+header {
+	position: fixed;
+	height: 1rem;
+	line-height: 1rem;
+	left: 0;
+	right: 0;
+	top: 0;
+	text-align: center;
+	font-size: 0.32rem;
+	margin: 0 auto;
+	z-index: 1;
+	background: #0C0C0D;
+}
+
+header .back {
+	background: transparent url('../img/icon-scroll-back.png') no-repeat;
+	width: 1rem;
+	height: 1rem;
+	background-size: 60%;
+	position: absolute;
+	margin-left: 0.15rem;
+	margin-top: 0.2rem;
+}
+
+
+/*列表*/
+
+.search,
+.catalog,
+.content {
+	margin: 0.3rem 0 1.5rem 0;
+}
+
+.content {
+	background: #fff;
+	font-size: 0.28rem;
+	padding: 0.2rem;
+	text-align: left;
+	pointer-events: none;
+}
+
+.tips {
+	font-size: 0.28rem;
+	height: 0.6rem;
+	line-height: 0.6rem;
+}
+
+.tips span {
+	color: rgb(255, 102, 0);
+}
+
+.book,
+.list {
+	padding: 0.15rem;
+}
+
+.book .img {
+	overflow: hidden;
+	height: 3.5rem;
+	text-align: center;
+	font-size: 2rem;
+	vertical-align: middle;
+	background: #000;
+	color: #333;
+	line-height: 3.5rem;
+}
+
+.book .img img {
+	width: 100%;
+	height: auto;
+}
+
+.book .title {
+	font-size: 0.32rem;
+	color: #000;
+	text-align: center;
+	padding-bottom: 5px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.list li {
+	height: 0.85rem;
+	line-height: 0.85rem;
+	background: #fff;
+	margin-bottom: 0.1rem;
+	font-size: 0.28rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 0 0.2rem;
+}
+
+.book li {
+	height: 4.35rem;
+	line-height: 0.85rem;
+	background: #fff;
+	margin-bottom: 0.1rem;
+	font-size: 0.28rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 0 0.2rem;
+	float: left;
+	width: 40%;
+	margin-left: 0.2rem;
+}
+
+
+.list .checked {
+	border-left: 0.05rem solid rgb(255, 102, 0);
+}
+
+.bg-form {
+	text-align: center;
+	opacity: 0.5;
+	margin: 1rem 0.2rem;
+	height: 10rem;
+}
+
+.form {
+	text-align: center;
+	margin: 0.2rem;
+}
+
+.form hr {
+	font-size: 0.32rem;
+	margin-bottom: 0.2rem;
+}
+
+.form h2 {
+	width: 90%;
+	font-size: 0.32rem;
+	text-align: left;
+}
+
+.form .input {
+	width: 90%;
+	height: 1rem;
+	line-height: 1rem;
+	border: none;
+	border-bottom: 1px solid #333;
+	margin: 0.1rem 0px;
+	background: transparent;
+	color: #000;
+	font-size: 0.36rem;
+}
+
+.form .btn {
+	width: 90%;
+	padding: 0.1rem;
+	border: none;
+	border-radius: 5px;
+	height: 1rem;
+	color: #fff;
+	text-align: center;
+	margin: 0.1rem 0px;
+}
+
+.form .tag {
+	font-size: 0.28rem;
+}
+
+.form .tag .li-chk {
+	background-color: #000;
+	color: #fff;
+}
+
+.form .tag li {
+	display: inline-block;
+	border: 1px solid #000;
+	border-radius: 5px;
+	width: 25%;
+	padding: 0.05rem;
+	margin: 0.1rem 0.05rem 0.15rem;
+}
+
+
+/*底部*/
+
+footer {
+	height: 65px;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+}
+
+footer .nav-flex {
+	height: 1.5rem;
+	box-shadow: 0px 0px 5px #cccccc;
+	display: inline-flex;
+	width: 100%;
+	margin: auto 0px;
+	background: #fff;
+	bottom: 0px;
+	position: absolute;
+}
+
+footer .nav-flex .li {
+	width: 33.33%;
+	text-align: center;
+	height: auto;
+}
+
+footer .nav-flex .li .img {
+	margin: 0.15rem auto;
+	border-radius: 50%;
+	width: 0.65rem;
+	height: 0.65rem;
+	background: #fff;
+	color: #333;
+	line-height: 0.8rem;
+	border: 1px solid #333;
+}
+
+footer .nav-flex .li .img-chk {
+	margin: 0.15rem auto;
+	border-radius: 50%;
+	width: 0.65rem;
+	height: 0.65rem;
+	background: #000;
+	color: #fff;
+	line-height: 0.8rem;
+}
+
+footer .nav-flex .li .tips {
+	font-size: 0.28rem;
+}

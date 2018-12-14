@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta name="screen-orientation" content="portrait">
+		<meta name="full-screen" content="yes">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta content="dahuotu" name="author" />
+		<title>搜小说</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="Stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<script type="text/javascript" src="js/flexible.js"></script>
+		<style type="text/css">
+
+		</style>
+	</head>
+
+	<body>
+		<header>
+			搜小说
+		</header>
+		<div style="height: 1.1rem;"></div>
+		<div class="form" ng-app="appform" ng-controller="myBook">
+			<div class="password"><input id="search" type="search" class="input" placeholder="小说名" ng-model="searchVal" /></div>
+			<br>
+			<button class="btn" style="background: #f60;" ng-click="postSearch()">搜小说</button>
+			<div class="search">
+				<div ng-class="tips_book">为您搜索到的跟<span>{{searchVal}}</span>相关的小说。</div>
+				<ul class="list" ng-repeat="item in booList">
+					<li ng-class="{checked:$index==isActive_book}" ng-click="postSearchList($index,item.href)">
+						{{item.title}}
+					</li>
+				</ul>
+			</div>
+			<div class="catalog">
+				<div ng-class="tips_catalog">为您搜索到<span>{{searchVal}}</span>的最新章节。</div>
+				<ul class="list" ng-repeat="item in catalogList">
+					<li ng-class="{checked:$index==isActive_catalog}" ng-click="postSearchPage($index,item.href)">
+						{{item.title}}
+					</li>
+				</ul>
+			</div>
+			<div ng-class="cs_content" ng-bind-html="content | htmlTrusted">
+			</div>
+		</div>
+		<footer>
+			<div class="nav-flex">
+				<div class="li" onclick="location.href='index.html'">
+					<div class="img img-chk">搜</div>
+					<div class="tips">搜小说</div>
+				</div>
+				<div class="li" onclick="location.href='list.html'">
+					<div class="img">架</div>
+					<div class="tips">书架</div>
+				</div>
+				<div class="li" onclick="location.href='setting.html'">
+					<div class="img">设</div>
+					<div class="tips">设置</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="js/layer.m/layer.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-resource.min.js"></script>
+	<script>
+		var app = angular.module("appform", []);
+		app.controller("myBook", function($scope, $http) {
+			$scope.isActive_book = -1;
+			$scope.isActive_catalog = -1;
+			$scope.tips_book = "tips hide";
+			$scope.tips_catalog = "tips hide";
+			$scope.baseUrl = "//dahuotu.bdery.com/api/";
+			$scope.searchVal = "";
+			$scope.booList = "";
+			$scope.catalogList = "";
+			$scope.content = "";
+			$scope.cs_content = "content hide";
+			$scope.postSearch = function() {
+				//搜索小说
+				if($scope.searchVal.length > 0) {
+					layer.open({
+						type: 2,
+						content: '搜索中...'
+					});
+					$http.get($scope.baseUrl + "api.aspx?act=xiaoshuo&val=" + $scope.searchVal).then(function(res) {
+						console.log(res.data);
+						$scope.booList = res.data.data;
+						$scope.tips_book = "tips show";
+						layer.closeAll();
+					}, function() {
+						//console.log('请求失败处理');
+					});
+				} else {
+					layer.open({
+						content: '请输入小说名',
+						skin: 'msg',
+						time: 2
+					});
+				}
+			};
+			$scope.postSearchList = function(index, href) {
+				//搜索目录
+				$scope.isActive_book = index;
+				layer.open({
+					type: 2,
+					content: '搜索最新章节中...'
+				});
+				$http.get($scope.baseUrl + "api.aspx?act=xiaoshuo_list&val=" + href).then(function(res) {
+					console.log(res.data);
+					$scope.catalogList = res.data.data;
+					$scope.tips_catalog = "tips show";
+					layer.closeAll();
+				}, function() {
+					//console.log('请求失败处理');
+				});
+			};
+			$scope.postSearchPage = function(index, href) {
+				//搜索正文
+				$scope.isActive_catalog = index;
+				layer.open({
+					type: 2,
+					content: '正在获取小说正文...'
+				});
+				$http.get($scope.baseUrl + "api.aspx?act=xiaoshuo_page&val=" + href).then(function(res) {
+					console.log(res);
+					$scope.content = res.data;
+					$scope.cs_content = "content show";
+					layer.closeAll();
+				}, function() {
+					//console.log('请求失败处理');
+				});
+			};
+		});
+		app.filter('htmlTrusted', function($sce) {
+			return function(html) {
+				return $sce.trustAsHtml(html)
+			}
+		});
+	</script>
+
+</html>

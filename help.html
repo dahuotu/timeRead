@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta name="screen-orientation" content="portrait">
+		<meta name="full-screen" content="yes">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta content="dahuotu" name="author" />
+		<title>免费追更小说API接口说明</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				outline: none;
+			}
+			
+			*:not(input, textarea) {
+				-webkit-touch-callout: inherit;
+				-webkit-user-select: auto;
+			}
+			
+			body {
+				width: 100%;
+				font-family: Hiragino Sans GB, Arial, Helvetica, "微软雅黑", sans-serif;
+				font-size: 14px;
+				color: #333;
+				-webkit-touch-callout: inherit;
+				-webkit-user-select: auto;
+				background-color: #f5f5f5;
+			}
+			
+			a {
+				color: #878787;
+				text-decoration: none;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+			
+			a:hover {
+				text-decoration: none;
+			}
+			
+			button,
+			input,
+			select,
+			textarea {
+				margin: 0;
+				padding: 0;
+				outline: none;
+			}
+			
+			dt,
+			dd {}
+			
+			textarea,
+			input {
+				resize: none;
+				outline: none;
+			}
+			
+			textarea {
+				resize: none;
+				-webkit-appearance: none;
+			}
+			
+			ul,
+			ol,
+			li {
+				list-style: none;
+			}
+			
+			em {
+				font-style: normal;
+			}
+			
+			button,
+			select,
+			textarea,
+			html input[type="button"],
+			input[type="reset"],
+			input[type="submit"] {
+				-webkit-appearance: button;
+				cursor: pointer;
+			}
+			
+			.img-responsive {
+				display: block;
+				max-width: 100%;
+				height: auto;
+			}
+			
+			.hide {
+				display: none;
+			}
+			
+			.show {
+				display: block;
+			}
+			
+			article {
+				background: rgba(255, 255, 255, 1);
+				box-shadow: 0 -0.02rem 0.04rem 0 rgba(219, 219, 219, 0.5);
+				margin: 0.3rem;
+				padding: 0.2rem;
+			}
+			
+			article h2 {
+				text-align: center;
+				font-size: 0.36rem;
+				margin-top: 0.5rem;
+			}
+			
+			article .code {
+				padding: 0.1rem;
+			}
+			
+			section {
+				padding: 0.1rem;
+			}
+			
+			section strong {
+				padding: 0.05rem;
+			}
+			
+			section p {
+				padding: 0.05rem;
+			}
+			
+			section pre {
+				padding: 0.16rem;
+				overflow: auto;
+				background-color: #f6f8fa;
+				border-radius: 0.03rem;
+				width: 95%;
+				border: none;
+				font-size: 0.28rem;
+				margin: 0.15rem 0;
+			}
+			
+			section dl dt {
+				margin: 0.2rem 0.1rem;
+			}
+			
+			.btn-down {
+				background: #0a8;
+				width: 80%;
+				margin: 0 auto;
+				color: #fff;
+				padding: 0.05rem 0.2rem;
+				text-align: center;
+				border-radius: 0.25rem;
+			}
+			
+			.mads {
+				height: 1rem;
+				line-height: 1rem;
+				text-align: center;
+				font-size: 0.32rem;
+			}
+		</style>
+		<script>
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+					recalc = function() {
+						var clientWidth = docEl.clientWidth;
+						if(!clientWidth) return;
+						if(clientWidth >= 750) {
+							docEl.style.fontSize = '100px';
+						} else {
+							docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+						}
+					};
+
+				if(!doc.addEventListener) return;
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener('DOMContentLoaded', recalc, false);
+			})(document, window);
+		</script>
+	</head>
+
+	<body>
+		<div id="app">
+			<article>
+				<h2>免费追更小说API接口说明</h2>
+				<div class="code">
+					<section>
+						<strong>公共调用</strong>
+						<p>请求地址（支持http/https/微信小程序）</p>
+						<pre>
+//dahuotu.bdery.com/api/
+						</pre>
+					</section>
+					<section>
+						<strong>搜索小说</strong>
+						<p>GET请求</p>
+						<pre>
+//dahuotu.bdery.com/api/api.aspx?act=xiaoshuo&val=儒道至圣
+						</pre>
+						<p>请求参数</p>
+						<pre>
+act=xiaoshuo
+val=要搜索的小说名称
+						</pre>
+						<p>JSON返回值</p>
+						<p>
+							<dl>
+								<dt>title:搜索到的小说名称</dt>
+								<dt>href:链接</dt>
+							</dl>
+						</p>
+						<pre>
+{
+	"msg": "success",
+	"data": [{
+		"title": "儒道至圣",
+		"href": "1BA1EC7B2271B9F1D3FAAAD38FF9C8AA5902F59A13039B94A983F69644BA0B1E4B5DE273BB4C1A7D"
+	}],
+	"code": "0"
+}
+						</pre>
+					</section>
+					<section>
+						<strong>追更小说列表</strong>
+						<p>GET请求</p>
+						<pre>
+//dahuotu.bdery.com/api/api.aspx?act=xiaoshuo_list&val=1BA1EC7B2271B9F1D3FAAAD38FF9C8AA5902F59A13039B94A983F69644BA0B1E4B5DE273BB4C1A7D
+						</pre>
+						<p>请求参数</p>
+						<pre>
+act=xiaoshuo_list
+val=小说搜索列表链接
+						</pre>
+						<p>JSON返回值</p>
+						<p>
+							<dl>
+								<dt>title:搜索到的小说名称</dt>
+								<dt>href:链接</dt>
+							</dl>
+						</p>
+						<pre>
+{
+	"msg": "success",
+	"data": [{
+		"title": "儒道至圣 第2862章 横冲直撞",
+		"href": "9B7CCF955248E5E864768A5D0DDB640DC1CDB51EFB6F12747319C097F5CF3E0EB1A278C553D1B51D45AE1A2AFF054C27"
+	}],
+	"code": "0"
+}
+						</pre>
+					</section>
+					<section>
+						<strong>追更小说文章内容</strong>
+						<p>GET请求</p>
+						<pre>
+//dahuotu.bdery.com/api/api.aspx?act=xiaoshuo_page&val=9B7CCF955248E5E864768A5D0DDB640DC1CDB51EFB6F12747319C097F5CF3E0EB1A278C553D1B51D45AE1A2AFF054C27
+						</pre>
+						<p>请求参数</p>
+						<pre>
+act=xiaoshuo_page
+val=小说链接
+						</pre>
+						<p>HTML返回</p>
+						<pre>
+文章字符串HTML
+						</pre>
+					</section>
+					<section>
+						<strong>接口调用演示</strong>
+						<p>目前只提供单页面演示，vue模块化版、angular模块化版、小程序版需付费15元获得。</p>
+						<p>
+							<dl>
+								<dt><a class="btn-down" href="demo-jquery.html" target="_blank">Jquery版(<span>免费</span>)</a></dt>
+								<dt><a class="btn-down" href="demo-vue2.html" target="_blank">Vue2.x版(<span>免费</span>)</a></dt>
+								<dt><a class="btn-down" href="demo-angular.html" target="_blank">Angular1.x版(<span>免费</span>)</a></dt>
+							</dl>
+						</p>
+					</section>
+				</div>
+			</article>
+		</div>
+		<div class="mads" onclick="location.href='http://www.bdery.com/'">
+			史上最全H5小游戏！
+		</div>
+	</body>
+
+</html>

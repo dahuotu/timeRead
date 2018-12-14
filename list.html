@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta name="screen-orientation" content="portrait">
+		<meta name="full-screen" content="yes">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta content="dahuotu" name="author" />
+		<title>书架</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="Stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<script type="text/javascript" src="js/flexible.js"></script>
+		<style type="text/css">
+
+		</style>
+	</head>
+
+	<body>
+		<header>
+			书架
+		</header>
+		<div style="height: 1.1rem;"></div>
+		<div class="list" id="appform">
+			<ul class="book">
+				<template v-for="item in List">
+					<li @click="clickLink(item.url)">
+						<div class="img">
+							{{subBigTitle(item.name)}}
+						</div>
+						<div class="title">{{item.name}}</div>
+					</li>
+				</template>
+			</ul>
+		</div>
+		<div style="height: 1.1rem;"></div>
+		<footer>
+			<div class="nav-flex">
+				<div class="li" onclick="location.href='index.html'">
+					<div class="img">搜</div>
+					<div class="tips">搜小说</div>
+				</div>
+				<div class="li" onclick="location.href='list.html'">
+					<div class="img img-chk">架</div>
+					<div class="tips">书架</div>
+				</div>
+				<div class="li" onclick="location.href='setting.html'">
+					<div class="img">设</div>
+					<div class="tips">设置</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript" src="js/layer.m/layer.min.js"></script>
+	<script>
+		window.onload = function(){
+			app.getList();
+		}
+		
+		var app = new Vue({
+			el: '#appform',
+			data: {
+				List: "",
+			},
+			methods: {
+				getList: function() {
+					var book = localStorage.getItem("bookJson");
+					app.List = JSON.parse(book);
+				},
+				subBigTitle: function(title) {
+					//return title.substring(0, 2);
+				},
+				clickLink: function(href) {
+
+				},
+			}
+		});
+	</script>
+
+</html>

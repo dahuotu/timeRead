@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta name="screen-orientation" content="portrait">
+		<meta name="full-screen" content="yes">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta content="dahuotu" name="author" />
+		<title>搜小说</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="Stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<script type="text/javascript" src="js/flexible.js"></script>
+		<style type="text/css">
+
+		</style>
+	</head>
+
+	<body>
+		<header>
+			搜小说
+		</header>
+		<div style="height: 1.1rem;"></div>
+		<div class="form" id="appform">
+			<div class="password"><input id="search" type="search" class="input" placeholder="小说名" /></div>
+			<br>
+			<button class="btn" style="background: #f60;">搜小说</button>
+			<div class="search">
+				<div class="tips hide">为您搜索到的跟<span class="sp_searchVal"></span>相关的小说。</div>
+				<ul class="list" id="booList">
+					<!--
+					<li id="index" class="" onclick="postSearchList(index,href)">
+						title
+					</li>
+					-->
+				</ul>
+			</div>
+			<div class="catalog">
+				<div class="tips hide">为您搜索到<span class="sp_searchVal"></span>的最新章节。</div>
+				<ul class="list" id="catalogList">
+					<!--
+					<li id="index" class="" onclick="postSearchPage(index,href)">
+						title
+					</li>
+					-->
+				</ul>
+			</div>
+			<div class="content hide">
+			</div>
+		</div>
+		<footer>
+			<div class="nav-flex">
+				<div class="li" onclick="location.href='index.html'">
+					<div class="img img-chk">搜</div>
+					<div class="tips">搜小说</div>
+				</div>
+				<div class="li" onclick="location.href='list.html'">
+					<div class="img">架</div>
+					<div class="tips">书架</div>
+				</div>
+				<div class="li" onclick="location.href='setting.html'">
+					<div class="img">设</div>
+					<div class="tips">设置</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="js/layer.m/layer.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		
+		
+		var baseUrl = "//dahuotu.bdery.com/api/";
+		$(".btn").click(function() {
+			var searchVal = $("#search").val();
+			//搜索小说
+			if(searchVal.length > 0) {
+				$.ajax({
+					type: 'get',
+					url: baseUrl + "api.aspx?act=xiaoshuo&val=" + searchVal,
+					dataType: "json",
+					beforeSend: function() {
+						layer.open({
+							type: 2,
+							content: '搜索中...'
+						});
+					},
+					success: function(res) {
+						console.log(res.data);
+						if(res != null) {
+							var html = "";
+							$.each(res.data, function(i, item) {
+								html += "<li id=\"lim_" + i + "\" class=\"\" onclick=\"postSearchList('lim_" + i + "','" + item.href + "')\">" + item.title + "</li>";
+							});
+							$("#booList").html(html);
+							$(".sp_searchVal").text(searchVal);
+							$(".search .tips").removeClass("hide").addClass("show");
+							layer.closeAll();
+						}
+					}
+				});
+			} else {
+				layer.open({
+					content: '请输入小说名',
+					skin: 'msg',
+					time: 2
+				});
+			}
+		});
+
+		function postSearchList(index, href) {
+			var searchVal = $("#search").val();
+			//搜索目录
+			$.ajax({
+				type: 'get',
+				url: baseUrl + "api.aspx?act=xiaoshuo_list&val=" + href,
+				dataType: "json",
+				beforeSend: function() {
+					layer.open({
+						type: 2,
+						content: '搜索最新章节中...'
+					});
+				},
+				success: function(res) {
+					console.log(res.data);
+					if(res != null) {
+						var html = "";
+						$.each(res.data, function(i, item) {
+							html += "<li id=\"'lic_'" + i + "\" class=\"\" onclick=\"postSearchPage('lic_" + i + "','" + item.href + "')\">" + item.title + "</li>";
+						});
+						$("#catalogList").html(html);
+						$(".sp_searchVal").text(searchVal);
+						$(".catalog .tips").removeClass("hide").addClass("show");
+						$("#booList .checked").removeClass("checked");
+						$("#booList #" + index).addClass("checked");
+						layer.closeAll();
+					}
+				}
+			});
+		}
+
+		function postSearchPage(index, href) {
+			//搜索正文
+			$.ajax({
+				type: 'get',
+				url: baseUrl + "api.aspx?act=xiaoshuo_page&val=" + href,
+				dataType: "text",
+				beforeSend: function() {
+					layer.open({
+						type: 2,
+						content: '正在获取小说正文...'
+					});
+				},
+				success: function(res) {
+					console.log(res);
+					if(res != null) {
+						$(".content").html(res).addClass("show");
+						$("#catalogList .checked").removeClass("checked");
+						$("#catalogList #" + index).addClass("checked");
+						layer.closeAll();
+					}
+				}
+			});
+		}
+	</script>
+
+</html>
