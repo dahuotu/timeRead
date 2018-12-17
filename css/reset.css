@@ -1,6 +1,7 @@
 [v-cloak] {
 	display: none
 }
+
 * {
 	margin: 0;
 	padding: 0;
@@ -20,6 +21,7 @@ body {
 	-webkit-touch-callout: inherit;
 	-webkit-user-select: auto;
 	background-color: #fff;
+	-webkit-font-smoothing: subpixel-antialiased;
 }
 
 a {
@@ -42,19 +44,15 @@ textarea {
 }
 
 dt,
-dd {
-	
-}
+dd {}
 
 textarea,
 input {
 	resize: none;
 	outline: none;
-}
-
-textarea {
-	resize: none;
-	-webkit-appearance: none;
+	border:0;
+   -webkit-appearance:none;
+   border-radius:0;
 }
 
 ul,
@@ -83,10 +81,31 @@ input[type="submit"] {
 	height: auto;
 }
 
+.video-responsive {
+	width: 100%;
+	height: 6.2rem;
+}
+
 .hide {
 	display: none;
 }
 
 .show {
 	display: block;
-}  
+}
+
+.round {
+	border-radius: 50%;
+}
+
+.badge {
+	display: inline-block;
+	min-width: 0.2rem;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #999;
+	border-radius: 2em;
+}

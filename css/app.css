@@ -66,6 +66,12 @@ header .back {
 	pointer-events: none;
 }
 
+.content img{
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
 .tips {
 	font-size: 0.28rem;
 	height: 0.6rem;
@@ -183,6 +189,7 @@ header .back {
 	color: #fff;
 	text-align: center;
 	margin: 0.1rem 0px;
+	font-size: 0.32rem;
 }
 
 .form .tag {
@@ -207,15 +214,15 @@ header .back {
 /*底部*/
 
 footer {
-	height: 65px;
+	/*! height: 1.2rem; */
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
 }
 
 footer .nav-flex {
-	height: 1.5rem;
-	box-shadow: 0px 0px 5px #cccccc;
+	height: 1.3rem;
+	box-shadow: 0px 0px 0.05rem #cccccc;
 	display: inline-flex;
 	width: 100%;
 	margin: auto 0px;
@@ -231,7 +238,7 @@ footer .nav-flex .li {
 }
 
 footer .nav-flex .li .img {
-	margin: 0.15rem auto;
+	margin: 0.1rem auto;
 	border-radius: 50%;
 	width: 0.65rem;
 	height: 0.65rem;
@@ -242,15 +249,17 @@ footer .nav-flex .li .img {
 }
 
 footer .nav-flex .li .img-chk {
-	margin: 0.15rem auto;
+	margin: 0.1rem auto;
 	border-radius: 50%;
 	width: 0.65rem;
 	height: 0.65rem;
 	background: #000;
 	color: #fff;
-	line-height: 0.8rem;
+	line-height: 0.65rem;
 }
 
 footer .nav-flex .li .tips {
 	font-size: 0.28rem;
+	height: 0.4rem;
+	line-height: 0.4rem;
 }
