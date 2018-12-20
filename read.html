@@ -32,19 +32,6 @@
 		</header>
 		<div style="height: 1.1rem;"></div>
 		<div class="form" id="appform" v-cloak="">
-			<div class="password"><input id="search" type="search" class="input" placeholder="小说名" v-model="searchVal" /></div>
-			<br>
-			<button class="btn" style="background: #f60;" @click="postSearch">搜小说</button>
-			<div id="booList" class="search">
-				<div :class="tips_book">为您搜索到的跟<span>{{searchVal}}</span>相关的小说。</div>
-				<ul class="list">
-					<template v-for="(item,index) in booList">
-						<li :key="index" :id="index" :class="{checked:index==isActive_book}" @click="postSearchList(index,item.href,item.title)">
-							{{item.title}}
-						</li>
-					</template>
-				</ul>
-			</div>
 			<div id="catalogList" class="catalog">
 				<div :class="tips_catalog">为您搜索到<span>{{searchVal}}</span>的最新章节。</div>
 				<ul class="list">
@@ -61,11 +48,11 @@
 		<footer>
 			<div class="nav-flex">
 				<div class="li" onclick="location.href='index.html'">
-					<div class="img img-chk">搜</div>
+					<div class="img">搜</div>
 					<div class="tips">搜小说</div>
 				</div>
 				<div class="li" onclick="location.href='list.html'">
-					<div class="img">架</div>
+					<div class="img img-chk">架</div>
 					<div class="tips">书架</div>
 				</div>
 				<div class="li" onclick="location.href='setting.html'">
@@ -82,20 +69,16 @@
 	<script>
 		$(function() {
 			app.loadStyle();
-			//localStorage.removeItem('bookJson');
+			app.loadSearchList(app.getQueryString('cid'));
 		});
-
 		var app = new Vue({
 			el: '#appform',
 			data: {
-				bgStyle: "",
-				isActive_book: -1,
+				bgStyle:"",
 				isActive_catalog: -1,
-				tips_book: "tips hide",
 				tips_catalog: "tips hide",
 				baseUrl: "//dahuotu.bdery.com/api/",
 				searchVal: "",
-				booList: "",
 				catalogList: "",
 				content: "",
 				cs_content: "content hide",
@@ -104,47 +87,8 @@
 				loadStyle: function() {
 					app.bgStyle = localStorage.getItem("configStyle");
 				},
-				postSearch: function() {
-					//搜索小说
-					if(app.searchVal.length > 0) {
-						layer.open({
-							type: 2,
-							content: '搜索中...'
-						});
-						this.$http.get(app.baseUrl + "api.aspx?act=xiaoshuo&val=" + app.searchVal).then(function(res) {
-							//console.log(res.body.data);
-							app.booList = res.body.data;
-							app.tips_book = "tips show";
-							$("html,body").animate({
-								scrollTop: $("#booList").offset().top - 50
-							}, 500);
-							layer.closeAll();
-						}, function() {
-							//console.log('请求失败处理');
-						});
-					} else {
-						layer.open({
-							content: '请输入小说名',
-							skin: 'msg',
-							time: 2
-						});
-					}
-				},
-				postSearchList: function(index, href, title) {
+				loadSearchList: function(href) {
 					//搜索目录
-					this.isActive_book = index;
-					var bookJson = {
-						title: title,
-						href: href
-					}
-					if(localStorage.getItem('bookJson') != null) {
-						var oldJson = JSON.parse(localStorage.getItem('bookJson'));
-						var newJson = oldJson.concat(bookJson);
-						localStorage.setItem('bookJson',JSON.stringify(newJson));
-					}else{
-						localStorage.setItem('bookJson',JSON.stringify(bookJson));
-					}
-
 					layer.open({
 						type: 2,
 						content: '搜索最新章节中...'
@@ -179,7 +123,13 @@
 					}, function() {
 						//console.log('请求失败处理');
 					});
-				}
+				},
+				getQueryString: function(name) {
+					var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+					var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则
+					if(r != null) return unescape(r[2]);
+					return null;
+				},
 			}
 		});
 	</script>

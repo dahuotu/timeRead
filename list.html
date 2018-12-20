@@ -35,9 +35,9 @@
 				<template v-for="item in List">
 					<li @click="clickLink(item.url)">
 						<div class="img">
-							{{subBigTitle(item.name)}}
+							{{subBigTitle(item.title)}}
 						</div>
-						<div class="title">{{item.name}}</div>
+						<div class="title">{{item.title}}</div>
 					</li>
 				</template>
 			</ul>
@@ -63,25 +63,27 @@
 	<script type="text/javascript" src="js/vue.js"></script>
 	<script type="text/javascript" src="js/layer.m/layer.min.js"></script>
 	<script>
-		window.onload = function(){
+		window.onload = function() {
 			app.getList();
 		}
-		
+
 		var app = new Vue({
 			el: '#appform',
 			data: {
+				links: "",
 				List: "",
 			},
 			methods: {
 				getList: function() {
+					console.log(localStorage.valueOf());
 					var book = localStorage.getItem("bookJson");
-					app.List = JSON.parse(book);
+					app.List = JSON.parse('[' + book + ']');
 				},
 				subBigTitle: function(title) {
-					//return title.substring(0, 2);
+					return title.substring(0, 1);
 				},
 				clickLink: function(href) {
-
+					location.href = 'read.html?cid=' + href;
 				},
 			}
 		});
