@@ -19,6 +19,7 @@
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="Stylesheet" href="css/reset.css" />
 		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="css/pintuer.layer.m.css" />
 		<script type="text/javascript" src="js/flexible.js"></script>
 		<style type="text/css">
 
@@ -34,7 +35,7 @@
 			<div class="password"><input id="search" type="search" class="input" placeholder="小说名" v-model="searchVal" /></div>
 			<br>
 			<button class="btn" style="background: #f60;" @click="postSearch">搜小说</button>
-			<div class="search">
+			<div id="booList" class="search">
 				<div :class="tips_book">为您搜索到的跟<span>{{searchVal}}</span>相关的小说。</div>
 				<ul class="list">
 					<template v-for="(item,index) in booList">
@@ -44,7 +45,7 @@
 					</template>
 				</ul>
 			</div>
-			<div class="catalog">
+			<div id="catalogList" class="catalog">
 				<div :class="tips_catalog">为您搜索到<span>{{searchVal}}</span>的最新章节。</div>
 				<ul class="list">
 					<template v-for="(item,index) in catalogList">
@@ -54,7 +55,7 @@
 					</template>
 				</ul>
 			</div>
-			<div :class="cs_content" v-html="content">
+			<div id="htmlContent" :class="cs_content" v-html="content">
 			</div>
 		</div>
 		<footer>
@@ -75,9 +76,9 @@
 		</footer>
 	</body>
 	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/layer.m/layer.min.js"></script>
 	<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
-
 	<script>
 		var app = new Vue({
 			el: '#appform',
@@ -105,6 +106,9 @@
 							//console.log(res.body.data);
 							app.booList = res.body.data;
 							app.tips_book = "tips show";
+							$("html,body").animate({
+								scrollTop: $("#booList").offset().top - 50
+							}, 500);
 							layer.closeAll();
 						}, function() {
 							//console.log('请求失败处理');
@@ -134,6 +138,9 @@
 						//console.log(res.body.data);
 						app.catalogList = res.body.data;
 						app.tips_catalog = "tips show";
+						$("html,body").animate({
+							scrollTop: $("#catalogList").offset().top - 50
+						}, 500);
 						layer.closeAll();
 					}, function() {
 						//console.log('请求失败处理');
@@ -150,6 +157,9 @@
 						//console.log(res.body);
 						app.content = res.body;
 						app.cs_content = "content show";
+						$("html,body").animate({
+							scrollTop: $("#htmlContent").offset().top - 50
+						}, 500);
 						layer.closeAll();
 					}, function() {
 						//console.log('请求失败处理');
